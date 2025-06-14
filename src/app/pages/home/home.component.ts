@@ -9,5 +9,5 @@ import { RouterModule } from '@angular/router';
 })
 export class HomeComponent {
   studentName: string = 'Sai Kumar Mamidala';
-  customTagline: string = 'Efficiently manage your product catalog with my unique system.';
+  customTagline: string = 'Efficiently manage your product catalog with my unique system - Product Hub.';
 }

@@ -1,39 +1,32 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  private appUrl = 'http://localhost:3000/api';
+  
+  constructor(private http: HttpClient) { }
 
-  constructor() { }
-  private products = [
-    {
-      id: 1,
-      name: 'Wireless Bluetooth Headphones',
-      description: 'High-quality wireless headphones with noise cancellation and premium sound quality for an immersive audio experience.',
-      imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e',
-      price: 89.99,
-      quantity: 45
-    },
-    {
-      id: 2,
-      name: 'Ergonomic Office Chair',
-      description: 'Comfortable ergonomic office chair with lumbar support and adjustable height settings for all-day comfort.',
-      imageUrl: 'https://images.unsplash.com/photo-1688578735427-994ecdea3ea4',
-      price: 199.99,
-      quantity: 8
-    },
-    {
-      id: 3,
-      name: 'Premium Running Shoes',
-      description: 'Lightweight running shoes with advanced cushioning technology and breathable mesh design for optimal performance.',
-      imageUrl: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff',
-      price: 129.99,
-      quantity: 0
-    }
-  ];
+  getProducts(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.appUrl}/products`);
+  }
 
-  getProducts() {
-    return this.products;
+  getProduct(id: number): Observable<any> {
+    return this.http.get<any>(`${this.appUrl}/products/${id}`);
+  }
+
+  addProduct(product: any): Observable<any> {
+    return this.http.post<any>(`${this.appUrl}/products`, product);
+  }
+
+  updateProduct(product: any): Observable<any> {
+    return this.http.put<any>(`${this.appUrl}/products/${product.id}`, product);
+  }
+
+  deleteProduct(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.appUrl}/products/${id}`);
   }
 }
